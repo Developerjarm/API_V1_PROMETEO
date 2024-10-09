@@ -1,0 +1,19 @@
+/node_modules/
+/dist/
+
+# Node.js modules
+/node_modules/
+
+# Directorios de compilación o distribución
+/dist/
+/build/
+
+# Archivos de paquetes de dependencias
+package-lock.json
+package.json
+yarn.lock
+
+# Variables de entorno
+.env
+.env.local
+.env.*.local
