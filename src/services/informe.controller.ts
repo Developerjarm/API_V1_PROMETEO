@@ -19,7 +19,6 @@ export const getInforme = async (req: Request, res: Response) => {
   try {
     const result = await pool.query(queryInforme);
     res.status(200).json(result.rows);
-    console.log(getColombiaDate());
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: `Error al obtener el informe` });
@@ -92,8 +91,6 @@ export const getInformeBiId = async (
     res.status(500).json({ message: "Error al realizar la consulta" });
   }
 };
-
-
 
 //create register informe
 export const createInformeResgister = async (req: Request, res: Response) => {

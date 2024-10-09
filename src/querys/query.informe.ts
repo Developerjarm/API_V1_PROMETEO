@@ -104,3 +104,78 @@ WHERE id_register = $1
 ORDER BY informe.date_register DESC
 `;
 
+//filter data 10 items mas utilizados
+export const queryInformeByFilterteenItems = `
+SELECT 
+    (tipificacion.name_typecause) AS typecause,
+    COUNT(*) AS total_registros
+FROM informe
+INNER JOIN agent ON agent.idagent = informe.id_agent
+INNER JOIN gestionmail ON gestionmail.idgestionmail = informe.id_gestionmail
+INNER JOIN tipificacion ON tipificacion.idtypecause = informe.id_typecause
+INNER JOIN marca ON marca.idmarca = informe.id_marca
+INNER JOIN monetizacion ON monetizacion.idmonetizacion = informe.id_monetizacion
+INNER JOIN supervisor ON supervisor.idsupervisor = informe.id_supervisor
+GROUP BY tipificacion.name_typecause
+ORDER BY total_registros DESC
+LIMIT 10;
+`
+//filter data 10 items mas utilizados SITAR
+export const queryInformeByFilterteenItemsSitar = `
+SELECT informe.id_register,agent.name_agente,gestionmail.name_gestionmail,tipificacion.name_typecause,
+informe.id_client,informe.pos_tienda,marca.name_marca,informe.value_monetizacion,monetizacion.name_monetizacion,
+supervisor.name_supervisor,informe.ticket_mesa,informe.ticket_secon_level,informe.date_register
+FROM informe
+INNER JOIN agent ON agent.idagent = informe.id_agent
+INNER JOIN gestionmail ON gestionmail.idgestionmail = informe.id_gestionmail
+INNER JOIN tipificacion ON tipificacion.idtypecause = informe.id_typecause
+INNER JOIN marca ON marca.idmarca = informe.id_marca
+INNER JOIN monetizacion ON monetizacion.idmonetizacion = informe.id_monetizacion
+INNER JOIN supervisor ON supervisor.idsupervisor = informe.id_supervisor
+WHERE tipificacion.name_typecause LIKE '%SITAR%'
+ORDER BY informe.date_register DESC
+`
+
+//FILTER DATA 10 ITEMS MAS UTILIZADOS SITAR AND VALUE
+export const queryInformeByFilterteenItemsSitarAndValue = `
+SELECT 
+    tipificacion.name_typecause AS typecause,
+    SUM(CASE 
+        WHEN informe.value_monetizacion IS NOT NULL THEN informe.value_monetizacion 
+        ELSE 0 
+    END) AS total_monetizacion,
+    COUNT(*) AS total_registros
+FROM informe
+INNER JOIN agent ON agent.idagent = informe.id_agent
+INNER JOIN gestionmail ON gestionmail.idgestionmail = informe.id_gestionmail
+INNER JOIN tipificacion ON tipificacion.idtypecause = informe.id_typecause
+INNER JOIN marca ON marca.idmarca = informe.id_marca
+INNER JOIN monetizacion ON monetizacion.idmonetizacion = informe.id_monetizacion
+INNER JOIN supervisor ON supervisor.idsupervisor = informe.id_supervisor
+WHERE tipificacion.name_typecause LIKE '%SITAR%'
+GROUP BY tipificacion.name_typecause
+ORDER BY total_registros DESC
+LIMIT 10;
+`
+//FILTER DATA 10 ITEMS MAS UTILIZADOS AND VALUE
+export const queryInformeByFilterteenItemsAndValue = `
+SELECT 
+    tipificacion.name_typecause AS typecause,
+    SUM(CASE 
+        WHEN informe.value_monetizacion IS NOT NULL THEN informe.value_monetizacion 
+        ELSE 0 
+    END) AS total_monetizacion,
+    COUNT(*) AS total_registros
+FROM informe
+INNER JOIN agent ON agent.idagent = informe.id_agent
+INNER JOIN gestionmail ON gestionmail.idgestionmail = informe.id_gestionmail
+INNER JOIN tipificacion ON tipificacion.idtypecause = informe.id_typecause
+INNER JOIN marca ON marca.idmarca = informe.id_marca
+INNER JOIN monetizacion ON monetizacion.idmonetizacion = informe.id_monetizacion
+INNER JOIN supervisor ON supervisor.idsupervisor = informe.id_supervisor
+WHERE tipificacion.name_typecause NOT LIKE '%SITAR%'
+GROUP BY tipificacion.name_typecause
+ORDER BY total_registros DESC
+LIMIT 10;
+`
+
