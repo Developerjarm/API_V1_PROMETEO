@@ -159,7 +159,7 @@ LIMIT 10;
 `
 
 //FILTER DATA 10 ITEMS MAS UTILIZADOS AND VALUE
-export const queryInformeByFilterteenItemsAndValue = `
+export const queryInformeByFilterteenItemsSacAndValue = `
 SELECT 
     tipificacion.name_typecause AS typecause,
     SUM(CASE 

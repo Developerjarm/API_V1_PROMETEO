@@ -7,12 +7,16 @@ import {
   getInformeBiId,
   createInformeResgister,
   UpdateInformeResgister,
-  deleteInformeResgister
+  deleteInformeResgister,
+  getInformeByFilterteenItemsSitar,
+  getInformeByFilterteenItems,
+  getInformeByFilterteenItemsSitarAndValue,
+  getInformeByFilterteenItemsSacAndValue
 } from "../services/informe.controller";
 
 const route = express.Router();
 const app = express();
-//test funcion informe sucess
+//test funcion informe sucess 
 route.get("/register/", getInforme);
 route.get("/register/:id_item",getInformeBiId)
 route.post("/register",createInformeResgister)
@@ -21,8 +25,9 @@ route.delete("/register/:id_item",deleteInformeResgister)
 //test funcion informe sucess
 route.get("/filterDate", getInformeByDate);
 route.get("/dayDate", getInformeByAgentAndDate);
-route.get('/prueba',(req: Request, res: Response)=>{
-  res.send(req.app.locals.nameAgent)
-})
+route.get("/filterSac", getInformeByFilterteenItems);
+route.get("/filterSitar", getInformeByFilterteenItemsSitar);
+route.get("/filterSiterValue",getInformeByFilterteenItemsSitarAndValue)
+route.get("/filterSacValue",getInformeByFilterteenItemsSacAndValue)
 
 export default route;

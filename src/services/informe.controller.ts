@@ -10,6 +10,10 @@ import {
   queryInforme,
   queryInformeByDate,
   queryInformeByAgentAndDate,
+  queryInformeByFilterteenItemsSitar,
+  queryInformeByFilterteenItems,
+  queryInformeByFilterteenItemsSitarAndValue,
+  queryInformeByFilterteenItemsSacAndValue
 } from "../querys/query.informe";
 
 
@@ -91,6 +95,73 @@ export const getInformeBiId = async (
     res.status(500).json({ message: "Error al realizar la consulta" });
   }
 };
+
+//filter data 10 items mas utilizados
+export const getInformeByFilterteenItems = async (req: Request, res: Response) => {
+  try {
+    const result = await pool.query(queryInformeByFilterteenItems);
+   if (result.rowCount === 0) {
+    res.status(200).json({ message: "No hay resultados" });
+   }else{
+    res.status(200).json(result.rows);
+   }
+}catch(error){
+    console.log(error);
+    res.status(500).json({ message: `Error al obtener el informe` });
+  }
+}
+
+//filter data 10 items mas utilizados and SITAR 
+export const getInformeByFilterteenItemsSitar = async (req: Request, res: Response) => {
+  try {
+const result = await pool.query(queryInformeByFilterteenItemsSitar);
+    if (result.rowCount === 0) {
+      res.status(200).json({ message: "No hay resultados" });
+    } else {
+      res.status(200).json(result.rows);
+    }
+  }catch(error){
+    console.log(error);
+    res.status(500).json({ message: `Error al obtener el informe` });
+  }
+}
+
+// filter datta InformeByFilterteenItemsSitarAndValue
+export const getInformeByFilterteenItemsSitarAndValue = async (req: Request, res: Response) => {
+  try {
+    const result = await pool.query(queryInformeByFilterteenItemsSitarAndValue)
+    if (result.rowCount === 0) {
+      res.status(200).json({message:'No hay resultados'})
+    }
+}catch(error){
+    console.log(error);
+    res.status(500).json({ message: `Error al obtener el informe` });
+  }
+}
+
+//filter data 10 items mas utilizados SAC and VALUE
+export const getInformeByFilterteenItemsSacAndValue = async (req: Request, res: Response) => {
+  try {
+    const result = await pool.query(queryInformeByFilterteenItemsSacAndValue)
+    if (result.rowCount === 0) {
+      res.status(200).json({message:'No hay resultados'})
+    }else{
+      res.status(200).json(result.rows);
+    }
+}catch(error){
+    console.log(error);
+    res.status(500).json({ message: `Error al obtener el informe` });
+  }
+}
+
+
+
+
+
+
+
+
+
 
 //create register informe
 export const createInformeResgister = async (req: Request, res: Response) => {
