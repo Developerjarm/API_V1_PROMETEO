@@ -157,6 +157,7 @@ GROUP BY tipificacion.name_typecause
 ORDER BY total_registros DESC
 LIMIT 10;
 `
+
 //FILTER DATA 10 ITEMS MAS UTILIZADOS AND VALUE
 export const queryInformeByFilterteenItemsAndValue = `
 SELECT 
