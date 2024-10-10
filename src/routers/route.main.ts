@@ -7,6 +7,7 @@ import supervisor from '../routers/supervisor.route'
 import tipificacion from '../routers/tipificacion.route'
 import informe from '../routers/informe.route'
 import login from '../routers/route.login'
+import user from './user.route'
 import{authenticate} from '../middleware/middleware'
 
 const route = express.Router()
@@ -26,6 +27,8 @@ route.use('/typecause',authenticate,tipificacion)
 route.use('/informe',authenticate,informe)
 //login
 route.use('/login',login,authenticate)
+//create user
+route.use('/user',user)
 
 
 
