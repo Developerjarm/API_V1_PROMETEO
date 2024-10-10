@@ -17,8 +17,19 @@ export interface CreateItems {
 export interface ReqId {
     id_item: string;
 }
+export interface idUser {
+    id_user: string;
+}
 
 export interface Login {
     username: string;
     password: string;
+}
+
+export interface CreateUser {
+    id_user: string;
+    user_authentication: string;
+    password_authentication: string;
+    rol_user: string;
+
 }

@@ -12,11 +12,10 @@ import {
   queryInformeByAgentAndDate,
   queryInformeByFilterteenItemsSitar,
   queryInformeByFilterteenItems,
+  queryInformeByFilterteenItemsSac,
   queryInformeByFilterteenItemsSitarAndValue,
   queryInformeByFilterteenItemsSacAndValue
 } from "../querys/query.informe";
-
-
 
 //get informe sin filter
 export const getInforme = async (req: Request, res: Response) => {
@@ -62,7 +61,8 @@ export const getInformeByAgentAndDate = async (req: Request, res: Response) => {
     if (!name_agent) {
       res
         .status(404)
-        .json({ message: "Se debe ingresar un agente y una fecha" });
+        .json({ message: "Se debe ingresar un agente" });
+        res.send(name_agent);
     } else {
       const result = await pool.query(queryInformeByAgentAndDate, [
         name_agent,
@@ -126,12 +126,30 @@ const result = await pool.query(queryInformeByFilterteenItemsSitar);
   }
 }
 
-// filter datta InformeByFilterteenItemsSitarAndValue
+//filter data 10 items mas utilizados and SAC
+export const getInformeByFilterteenItemsSac = async (req: Request, res: Response) => {
+  try {
+const result = await pool.query(queryInformeByFilterteenItemsSac);
+    if (result.rowCount === 0) {
+      res.status(200).json({ message: "No hay resultados" });
+    } else {
+      res.status(200).json(result.rows);
+    }
+  }catch(error){
+    console.log(error);
+    res.status(500).json({ message: `Error al obtener el informe` });
+  }
+}
+
+
+// filter datta 10 items mas utilizados SITAR and VALUE
 export const getInformeByFilterteenItemsSitarAndValue = async (req: Request, res: Response) => {
   try {
     const result = await pool.query(queryInformeByFilterteenItemsSitarAndValue)
     if (result.rowCount === 0) {
       res.status(200).json({message:'No hay resultados'})
+    }else{
+      res.status(200).json(result.rows);
     }
 }catch(error){
     console.log(error);
@@ -153,13 +171,6 @@ export const getInformeByFilterteenItemsSacAndValue = async (req: Request, res: 
     res.status(500).json({ message: `Error al obtener el informe` });
   }
 }
-
-
-
-
-
-
-
 
 
 
