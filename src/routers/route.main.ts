@@ -28,7 +28,7 @@ route.use('/informe',authenticate,informe)
 //login
 route.use('/login',login,authenticate)
 //create user
-route.use('/user',user)
+route.use('/user',authenticate,user)
 
 
 
